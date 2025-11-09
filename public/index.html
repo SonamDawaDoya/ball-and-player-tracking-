@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPortVision AI | Player & Ball Tracker</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1606813902910-028c1e6b4b0a?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(8px) brightness(0.6);
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background: rgba(25, 25, 50, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 550px;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 2.3em;
+      color: #fff;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+
+    h1 span {
+      color: #4dabf7;
+    }
+
+    .tagline {
+      margin-top: 8px;
+      font-size: 1em;
+      color: #ccc;
+      font-weight: 300;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 25px;
+      margin-top: 30px;
+      text-align: center;
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.08);
+      transition: 0.3s ease;
+    }
+
+    .upload-btn {
+      display: inline-block;
+      padding: 12px 35px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #6a5af9, #4dabf7);
+      color: white;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1em;
+    }
+
+    .upload-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 10px rgba(77, 184, 255, 0.5);
+    }
+
+    .processing {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .progress-bar {
+      height: 6px;
+      width: 80%;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      margin: 10px auto;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      width: 65%;
+      background: linear-gradient(90deg, #4dabf7, #6a5af9);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 25px;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .option-btn {
+      flex: 1;
+      min-width: 150px;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .option-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-3px);
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .footer a {
+      color: #4dabf7;
+      text-decoration: none;
+      margin: 0 8px;
+      transition: 0.3s;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    #videoFile {
+      display: none;
+    }
+
+    #videoPlayer, #videoInline {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    #downloadLink {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+        width: 90%;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+      .upload-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <h1>SPort<span>Vision</span> AI</h1>
+    <p class="tagline">Automated Player & Ball Tracking using Computer Vision ⚽</p>
+
+    <div class="section">
+      <input type="file" id="videoFile" accept="video/*">
+      <button class="upload-btn" id="uploadBtn">⬆ Upload Your Match Video</button>
+
+      <div class="processing" id="processing" style="display: none;">
+        <br>
+        Please wait: <strong id="estimatedTime">Processing your video...</strong>
+      </div>
+
+      <div class="progress-bar" id="progressBar" style="display: none;">
+        <div class="progress" id="progress"></div>
+      </div>
+      <div class="status" id="status"></div>
+    </div>
+
+    <div id="inlinePlayer" style="display: none; margin-top: 16px;">
+      <video id="videoInline" controls preload="metadata" playsinline></video>
+      <div id="videoError" style="display:none; color:#ffb3b3; margin-top:8px; font-size:14px;"></div>
+      <a id="openInNewTab" target="_blank" rel="noopener" style="display:none; margin-top:8px; color:#4dabf7;">Open video in new tab</a>
+    </div>
+
+    <div class="options">
+      <div class="option-btn" id="watchBtn" style="display: none;">▶ Watch Online</div>
+      <div class="option-btn" id="downloadBtn" style="display: none;">⬇ Download Video</div>
+    </div>
+
+    <div class="footer">
+      <a href="feature.html">Features</a> |
+      <a href="pricing.html">Pricing</a> |
+      <a href="support.html">Support</a>
+    </div>
+  </div>
+
+  <script>
+    const uploadBtn = document.getElementById('uploadBtn');
+    const videoFile = document.getElementById('videoFile');
+    const processing = document.getElementById('processing');
+    const progressBar = document.getElementById('progressBar');
+    const progress = document.getElementById('progress');
+    const status = document.getElementById('status');
+    const watchBtn = document.getElementById('watchBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const videoInline = document.getElementById('videoInline');
+    const videoError = document.getElementById('videoError');
+    const openInNewTab = document.getElementById('openInNewTab');
+    const downloadLink = document.createElement('a');
+    let processedStreamSrc = null;
+
+    uploadBtn.addEventListener('click', () => videoFile.click());
+
+    videoFile.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('video', file);
+
+      uploadBtn.disabled = true;
+      uploadBtn.textContent = 'Processing...';
+      processing.style.display = 'block';
+      progressBar.style.display = 'block';
+      status.textContent = 'Uploading and processing your video...';
+      status.style.color = 'white';
+
+      let progressValue = 0;
+      const interval = setInterval(() => {
+        progressValue += 10;
+        progress.style.width = progressValue + '%';
+        if (progressValue >= 100) clearInterval(interval);
+      }, 500);
+
+      try {
+        const response = await fetch('/upload', { method: 'POST', body: formData });
+        const result = await response.json();
+
+        if (result.success) {
+          status.textContent = 'Processing complete!';
+          status.style.color = 'lightgreen';
+          progress.style.width = '100%';
+
+          processedStreamSrc = result.stream_url || `/video/${result.filename}`;
+          videoInline.src = processedStreamSrc;
+          videoInline.load();
+
+          downloadLink.href = `/download/${result.filename}`;
+
+          watchBtn.style.display = 'block';
+          downloadBtn.style.display = 'block';
+        } else {
+          throw new Error(result.error || 'Processing failed');
+        }
+      } catch (error) {
+        status.textContent = `Error: ${error.message}`;
+        status.style.color = 'red';
+      } finally {
+        uploadBtn.disabled = false;
+        uploadBtn.textContent = '⬆ Upload Your Match Video';
+      }
+    });
+
+    watchBtn.addEventListener('click', () => {
+      if (!processedStreamSrc) return;
+      const inlinePlayer = document.getElementById('inlinePlayer');
+      inlinePlayer.style.display = 'block';
+      const srcWithBuster = `${processedStreamSrc}${processedStreamSrc.includes('?') ? '&' : '?' }t=${Date.now()}`;
+      videoInline.src = srcWithBuster;
+      videoInline.load();
+      videoInline.play().catch(()=>{});
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      if (downloadLink.href) {
+        window.location.href = downloadLink.href;
+      }
+    });
+  </script>
+</body>
+</html>

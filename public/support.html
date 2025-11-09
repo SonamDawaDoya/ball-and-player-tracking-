@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support | SPortVision AI</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+      color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #4db8ff;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      font-size: 1.3em;
+      color: #ddd;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 1em;
+      color: #ccc;
+      margin: 5px 0;
+    }
+
+    h3 {
+      color: #ff6666;
+      margin: 20px 0;
+      font-weight: 500;
+    }
+
+    a {
+      color: #4db8ff;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    a:hover {
+      color: #3399ff;
+    }
+
+    .contact {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px 30px;
+      border-radius: 12px;
+      margin-top: 20px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact h3 {
+      color: #4db8ff;
+      margin-bottom: 10px;
+    }
+
+    .contact p {
+      margin: 8px 0;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 25px;
+      background-color: #4db8ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #3399ff;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    body > * {
+      animation: fadeIn 1s ease forwards;
+    }
+
+    /* Image gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      width: 90%;
+      max-width: 800px;
+      margin-top: 24px;
+    }
+    .gallery-item {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+    .caption {
+      margin-top: 8px;
+      font-size: 0.95em;
+      color: #ddd;
+    }
+
+    /* Click popover */
+    .profile-popover {
+      position: absolute;
+      background: rgba(30, 30, 40, 0.98);
+      color: #f5f5f5;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      padding: 14px 16px;
+      width: 260px;
+      z-index: 1000;
+      display: none;
+    }
+    .profile-popover h4 {
+      margin: 0 0 6px 0;
+      color: #4db8ff;
+      font-weight: 600;
+    }
+    .profile-popover p {
+      margin: 4px 0;
+      color: #ddd;
+      font-size: 0.95em;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Need Help?</h1>
+  <h2>We’re Here for You — Soon!</h2>
+  <p>We’re currently working hard to bring full support to <strong>SPortVision AI</strong> users.</p>
+  <p>Our help system isn’t available yet, but we’ll be launching it very soon.</p>
+  <h3>We sincerely apologize for the inconvenience.</h3>
+  <p>With love,</p>
+  <p><strong>The SPortVision AI Team ❤️</strong></p>
+
+  <!-- Image gallery from public/images -->
+   <h1>Meet the <strong>team</strong> behind SPortVision AI</h1>
+  <div class="gallery" id="teamGallery">
+    <div class="gallery-item">
+      <img src="images/passang.png" alt="Passang" 
+           data-name="Passang Dorji" 
+           data-role="Lead Engineer"
+           data-email="passang@example.com"
+           data-bio="Focuses on realtime tracking and model optimization."
+           data-side="left">
+      <div class="caption">Passang</div>
+    </div>
+    <!-- <div class="gallery-item">
+      <img src="images/pssa.jpeg" alt="Support image pssa">
+      <div class="caption">Pssa</div>
+    </div> -->
+    <!-- <div class="gallery-item">
+      <img src="images/snam.jpg" alt="Support image snam">
+      <div class="caption">Snam</div>
+    </div> -->
+    <div class="gallery-item">
+      <img src="images/sonam.jpg" alt="Sonam"
+           data-name="Sonam Dawa Doya"
+           data-role="Product Designer"
+           data-email="sonam@example.com"
+           data-bio="Designs delightful, accessible UI for sports analytics.">
+      <div class="caption">Sonam</div>
+    </div>
+  </div>
+
+  <!-- Popover element -->
+  <div class="profile-popover" id="profilePopover"></div>
+
+  <div class="contact">
+    <h3>Contact Us</h3>
+    <p>📧 Email: <a href="mailto:support@sportvisionai.com">support@sportvisionai.com</a></p>
+    <p>📞 Phone: <a href="tel:+1234567890">+123 456 7890</a></p>
+    <p>🌐 Website: <a href="https://sportvisionai.com" target="_blank">sportvisionai.com</a></p>
+    <p>📘 Facebook: <a href="https://facebook.com/sportvisionai" target="_blank">@sportvisionai</a></p>
+    <p>🐦 Twitter: <a href="https://twitter.com/sportvisionai" target="_blank">@sportvisionai</a></p>
+    <p>📸 Instagram: <a href="https://instagram.com/sportvisionai" target="_blank">@sportvisionai</a></p>
+    <p>💼 LinkedIn: <a href="https://linkedin.com/company/sportvisionai" target="_blank">@sportvisionai</a></p>
+    <p>▶️ YouTube: <a href="https://youtube.com/@sportvisionai" target="_blank">@sportvisionai</a></p>
+  </div>
+
+  <a href="index.html" class="back-btn">← Back to Home</a>
+
+  <footer>© 2025 SPortVision AI</footer>
+  <script>
+    const pop = document.getElementById('profilePopover');
+    const gallery = document.getElementById('teamGallery');
+
+    function showPopover(imgEl) {
+      const name = imgEl.dataset.name || imgEl.alt || 'Team Member';
+      const role = imgEl.dataset.role || '';
+      const email = imgEl.dataset.email || '';
+      const bio = imgEl.dataset.bio || '';
+
+      pop.innerHTML = `
+        <h4>${name}</h4>
+        ${role ? `<p><strong>Role:</strong> ${role}</p>` : ''}
+        ${email ? `<p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>` : ''}
+        ${bio ? `<p>${bio}</p>` : ''}
+      `;
+
+      // Compute placement left or right based on viewport center
+      const rect = imgEl.getBoundingClientRect();
+      const preferred = (imgEl.dataset.side || '').toLowerCase();
+      const spaceRight = window.innerWidth - rect.right;
+      const spaceLeft = rect.left;
+      const top = window.scrollY + rect.top + rect.height / 2 - 60;
+      let left;
+      if (preferred === 'left') {
+        left = window.scrollX + rect.left - 12 - 260;
+      } else if (preferred === 'right') {
+        left = window.scrollX + rect.right + 12;
+      } else if (spaceRight > 300 || spaceRight > spaceLeft) {
+        left = window.scrollX + rect.right + 12; // right side
+      } else {
+        left = window.scrollX + rect.left - 12 - 260; // left side
+      }
+      pop.style.top = `${top}px`;
+      pop.style.left = `${left}px`;
+      pop.style.display = 'block';
+    }
+
+    function hidePopover() {
+      pop.style.display = 'none';
+    }
+
+    gallery.addEventListener('click', (e) => {
+      const img = e.target.closest('img');
+      if (!img) return;
+      if (pop.style.display === 'block') hidePopover();
+      showPopover(img);
+    });
+
+    // Hide when clicking elsewhere or on ESC
+    document.addEventListener('click', (e) => {
+      if (!pop.contains(e.target) && !gallery.contains(e.target)) hidePopover();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hidePopover(); });
+    window.addEventListener('resize', hidePopover);
+    window.addEventListener('scroll', hidePopover);
+  </script>
+</body>
+</html>
