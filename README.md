@@ -1,8 +1,3 @@
-Excellent — you’ve got everything set up perfectly for GitHub 🎯
-Based on your **project structure (screenshot)** and **project content (from Template Project.docx)**, here’s a complete and professional **README.md** you can use directly for your repository 👇
-
----
-
 ## ⚽ Player and Ball Tracking in Football using Computer Vision
 
 ### 📖 Overview
